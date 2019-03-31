@@ -188,6 +188,12 @@ class UV_Portfolio
           )
         )
       );
+      $cmb->add_field( array(
+      	'name' => 'Featured',
+      	'desc' => 'check to show on home page',
+      	'id'   => $prefix.'featured',
+      	'type' => 'checkbox',
+      ) );
     }
 
     public function display_content($atts)
@@ -241,7 +247,7 @@ class UV_Portfolio
             return [
                     'title' => get_the_title($id),
                     'excerpt' => get_the_excerpt($id),
-                    'img_thumb_url' => get_the_post_thumbnail_url($id, "medium"),
+                    'img_thumb_url' => get_the_post_thumbnail_url($id, "large"),
                     'img_url' => get_the_post_thumbnail_url($id, "full"),
                     'item_url' => get_permalink($id)
                   ];
