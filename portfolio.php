@@ -44,7 +44,7 @@ class UV_Portfolio
         add_action('wp_enqueue_scripts', array( $this, 'register_scripts' ), 10, 1);
         // Setup the meta box hooks
         add_action('init', array($this, 'create_cpt'));
-        //$this->add_meta_box();
+        $this->add_meta_box();
 
         add_shortcode('services', array($this, 'display_content'));
     } // end construct
@@ -164,7 +164,7 @@ class UV_Portfolio
     {
         $prefix = strtolower($this->singular_label).'_';
 
-        $cmb_product_page = new_cmb2_box([
+        $cmb_portfolio_page = new_cmb2_box([
          'id'           => $prefix . 'metabox',
          'title'        => esc_html__($this->singular_label.' Info', 'cmb2'),
          'object_types' => array( strtolower($this->plural_label) ), // Post type
@@ -173,22 +173,8 @@ class UV_Portfolio
          'show_names'   => true, // Show field names on the left
         ]);
 
-        $cmb_product_page->add_field(
-           array(
-          'name'    => 'Icon',
-          'desc'    => 'SVG/PNG format preferred',
-          'id'      => $prefix . 'icon',
-          'type'    => 'file',
-          'text'    => array(
-            'add_upload_file_text' => 'Add Icon' // Change upload button text. Default: "Add or Upload File"
-          ),
-          // query_args are passed to wp.media's library query.
-          'query_args' => array(
-            'type' => ['image/svg+xml', 'image/png'], // Make library only display PDFs.
-          )
-        )
-      );
-      $cmb->add_field( array(
+
+      $cmb_portfolio_page->add_field( array(
       	'name' => 'Featured',
       	'desc' => 'check to show on home page',
       	'id'   => $prefix.'featured',
@@ -249,7 +235,8 @@ class UV_Portfolio
                     'excerpt' => get_the_excerpt($id),
                     'img_thumb_url' => get_the_post_thumbnail_url($id, "large"),
                     'img_url' => get_the_post_thumbnail_url($id, "full"),
-                    'item_url' => get_permalink($id)
+                    'item_url' => get_permalink($id),
+                    'featured' => get_post_meta($id, strtolower($this->singular_label).'_featured')
                   ];
         }, $items);
     }
