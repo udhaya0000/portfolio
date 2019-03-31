@@ -1,0 +1,11 @@
+.slide-content {
+  background-position: center;
+  background-size: cover;
+  padding-top: 512px;
+}
+
+@media only screen and (max-width: 768px) {
+  .slide-content {
+    padding-top: 460px;    
+  }
+}
